@@ -9,7 +9,7 @@ class FamilyTree():
         """
         :param root: The root FamilyTreeNode of the tree.
         """
-        self.root = root or FamilyTreeNode('ME')
+        self.root = FamilyTreeNode(root) or FamilyTreeNode('ME')
         self.call_stack = [self.root]
 
     @property

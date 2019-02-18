@@ -1,3 +1,5 @@
 """Entry point to the game."""
 
-print("Hello, WAID!")
+from game_console import GameConsole
+
+GameConsole().start_game()
