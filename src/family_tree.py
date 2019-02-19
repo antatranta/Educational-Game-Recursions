@@ -17,6 +17,11 @@ class FamilyTree():
         """Current Family Tree head."""
         return self.call_stack[-1]
 
+    @property
+    def whole_family_tree(self):
+        """Returns the family tree"""
+        return self.call_stack
+
     def go_to_mother(self):
         """Move the `head` pointer to the current `head` mother."""
         self.call_stack.append(self.head.mother)
