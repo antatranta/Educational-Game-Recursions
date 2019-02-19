@@ -9,7 +9,7 @@ class FamilyTree():
         """
         :param root: The root FamilyTreeNode of the tree.
         """
-        self.root = FamilyTreeNode(root) or FamilyTreeNode('ME')
+        self.root = root or FamilyTreeNode('ME')
         self.call_stack = [self.root]
 
     @property
@@ -18,21 +18,52 @@ class FamilyTree():
         return self.call_stack[-1]
 
     @property
-    def whole_family_tree(self):
-        """Returns the family tree"""
-        return self.call_stack
+    def depth(self):
+        """Depth of the `head` node."""
+        return len(self.call_stack)
+
+    @property
+    def size(self):
+        """Total number of nodes in the tree."""
+        return self._recursive_size(self.root)
 
     def go_to_mother(self):
-        """Move the `head` pointer to the current `head` mother."""
-        self.call_stack.append(self.head.mother)
+        """
+        Move to the current `head` mother.
+
+        :returns: New `head` node, or None if none exists
+        """
+        mother = self.head.mother
+        if mother:
+            self.call_stack.append(mother)
+        return mother
 
     def go_to_father(self):
-        """Move the `head` pointer to the current `head` father."""
-        self.call_stack.append(self.head.father)
+        """
+        Move to the current `head` father.
+
+        :returns: New `head` node, or None if none exists
+        """
+        father = self.head.father
+        if father:
+            self.call_stack.append(father)
+        return father
 
     def go_to_child(self):
-        """Move the `head` pointer to the current `head` child."""
+        """
+        Move the `head` pointer to the current `head` child.
+
+        :returns: New `head` node, or None if none exists
+        """
+        if self.head == self.root:
+            return None
         self.call_stack.pop()
+        return self.head
+
+    def _recursive_size(self, node):
+        if node is None:
+            return 0
+        return 1 + self._recursive_size(node.father) + self._recursive_size(node.mother)
 
     def __str__(self):
         return f"Family Tree, root: '{self.root}'"

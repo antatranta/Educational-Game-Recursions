@@ -3,6 +3,7 @@
 import time
 import sys
 from family_tree import FamilyTree
+from family_tree_node import FamilyTreeNode
 
 
 class GameConsole:
@@ -64,7 +65,7 @@ class GameConsole:
     def _print_whole_family_tree_(self, iteration, indent=""):
         """ Prints out the user's family tree with tabs so it shows how deep the recursion
             is """
-        print_family_tree = self.player_family_tree.whole_family_tree
+        print_family_tree = self.player_family_tree.call_stack
 
         while 1:
             print(indent, print_family_tree[iteration], sep='')
@@ -74,6 +75,20 @@ class GameConsole:
 
             break
 
+    @classmethod
+    def _initialize_tree(cls, player_name):
+        father = FamilyTreeNode("Father",
+                                father=FamilyTreeNode("Paternal Grandfather"),
+                                mother=FamilyTreeNode("Paternal Grandmother"))
+
+        mother = FamilyTreeNode("Mother",
+                                father=FamilyTreeNode("Maternal Grandfather"),
+                                mother=FamilyTreeNode("Maternal Grandmother"))
+
+        player = FamilyTreeNode(player_name, father=father, mother=mother)
+
+        return FamilyTree(player)
+
     def main_game(self):
         """ The actual main game where it will handle user input to create a family tree that
             takes in user input to traverse that same family tree while printing out call
@@ -81,7 +96,7 @@ class GameConsole:
         get_player_name = "What is your name?"
         print(get_player_name)
         player_name = input(self.enter_input)
-        self.player_family_tree = FamilyTree(player_name)
+        self.player_family_tree = self._initialize_tree(player_name)
 
         while 1:
             self._print_current_family_tree_()
