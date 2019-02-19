@@ -53,7 +53,7 @@ class GameConsole:
         print(family_tree_message)
         self._print_whole_family_tree_(0)
 
-        print("\n", self.player_family_tree, sep='')
+        print("\n", self.player_family_tree.tree_string, sep='')
 
         current_node = "This is where you are currently at in the family tree: "
         print(current_node, self.player_family_tree.head)

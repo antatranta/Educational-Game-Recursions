@@ -27,6 +27,27 @@ class FamilyTree():
         """Total number of nodes in the tree."""
         return self._recursive_size(self.root)
 
+    @property
+    def tree_string(self):
+        """A String representation of the Tree"""
+        string = ''
+        new_layer = [self.root]
+
+        # Build a list of layers
+        while not all([n is None for n in new_layer]):
+            layer = new_layer
+            new_layer = []
+
+            for node in layer:
+                new_layer += [None, None] if node is None else [node.father, node.mother]
+
+                marker = "* " if node is self.head else ""
+                text = f"'{node}'" if node is not None else "None"
+                string += f"{marker}{text} "
+            string += "\n"
+
+        return string
+
     def go_to_mother(self):
         """
         Move to the current `head` mother.
