@@ -102,27 +102,24 @@ class GameConsole:
 
             if self.player_family_tree.depth == 0:
                 traverse_message = "Where do you want to go? (M)other or (F)ather. You can also " \
-                                   "type (l)eft or (r)ight (left for mother and right for " \
-                                   "father). You can also (q)uit."
+                                   "type (l)eft or (r)ight. You can also (q)uit."
             else:
                 traverse_message = "Where do you want to go? (M)other, (F)ather, or (C)hild. " \
-                                   "You can also type (l)eft, (r)ight, or (b)ack (left for " \
-                                   "mother, right for father, and back for child). You can also " \
+                                   "You can also type (l)eft, (r)ight, or (b)ack. You can also " \
                                    "(q)uit."
 
             print(traverse_message)
 
-            traverse_child = ["Child", "child", "C", "c", "Back", "back", "B", "b"]
-            traverse_mother = ["Mother", "mother", "M", "m", "Left", "left", "L", "l"]
-            traverse_father = ["Father", "father", "F", "f", "Right", "right", "R", "r"]
+            traverse_child = ["child", "c", "back", "b"]
+            traverse_father = ["father", "f", "left", "l"]
+            traverse_mother = ["mother", "m", "right", "r"]
 
             while 1:
-                user_traverse_input = input(self.enter_input)
+                user_traverse_input = input(self.enter_input).lower()
 
-                if self.player_family_tree.depth > 0:
-                    if user_traverse_input in traverse_child:
-                        self.player_family_tree.go_to_child()
-                        break
+                if self.player_family_tree.depth > 0 and user_traverse_input in traverse_child:
+                    self.player_family_tree.go_to_child()
+                    break
                 if user_traverse_input in traverse_mother:
                     self.player_family_tree.go_to_mother()
                     break
