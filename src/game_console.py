@@ -14,7 +14,7 @@ class GameConsole:
         self.error_message = "That is not a correct input!"
         self.game_state = 0
         self.player_family_tree = None
-        self.quit_strings = ["Quit", "quit", "q", "Q"]
+        self.quit_strings = ["quit", "q"]
 
     def start_game(self):
         """ Starts a new game in that a welcome message appears and ask if the user want to play
@@ -25,10 +25,10 @@ class GameConsole:
         print(welcome_message)
         print(menu)
 
-        play_strings = ["Play", "play", "p", "P"]
+        play_strings = ["play", "p"]
 
         while 1:
-            user_input = input(self.enter_input)
+            user_input = input(self.enter_input).lower()
 
             if user_input in play_strings:
                 self.main_game()
@@ -51,14 +51,13 @@ class GameConsole:
             the recursion level """
         family_tree_message = "Here is your family tree:\n"
         print(family_tree_message)
+        print(self.player_family_tree.tree_string)
+
+        current_node = "This is where you are currently at in the family tree: \n"
+        print(current_node)
         self._print_whole_family_tree_(0)
 
-        print("\n", self.player_family_tree.tree_string, sep='')
-
-        current_node = "This is where you are currently at in the family tree: "
-        print(current_node, self.player_family_tree.head)
-
-        recursion_message = "This is where you are on the recursion level: "
+        recursion_message = "\nThis is where you are on the recursion level: "
         print(recursion_message, self.player_family_tree.depth, "\n", sep='')
 
     def _print_whole_family_tree_(self, iteration, indent=""):

@@ -2,7 +2,8 @@
 
 from family_tree_node import FamilyTreeNode
 
-class FamilyTree():
+
+class FamilyTree:
     """Represents a single FamilyTree."""
 
     def __init__(self, root=None):
