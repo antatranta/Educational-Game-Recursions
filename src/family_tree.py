@@ -20,7 +20,7 @@ class FamilyTree():
     @property
     def depth(self):
         """Depth of the `head` node."""
-        return len(self.call_stack)
+        return len(self.call_stack) - 1
 
     @property
     def size(self):

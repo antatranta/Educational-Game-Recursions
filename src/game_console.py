@@ -14,7 +14,6 @@ class GameConsole:
         self.error_message = "That is not a correct input!"
         self.game_state = 0
         self.player_family_tree = None
-        self.recursion_level = 0
         self.quit_strings = ["Quit", "quit", "q", "Q"]
 
     def start_game(self):
@@ -60,7 +59,7 @@ class GameConsole:
         print(current_node, self.player_family_tree.head)
 
         recursion_message = "This is where you are on the recursion level: "
-        print(recursion_message, self.recursion_level, "\n", sep='')
+        print(recursion_message, self.player_family_tree.depth, "\n", sep='')
 
     def _print_whole_family_tree_(self, iteration, indent=""):
         """ Prints out the user's family tree with tabs so it shows how deep the recursion
@@ -70,7 +69,7 @@ class GameConsole:
         while 1:
             print(indent, print_family_tree[iteration], sep='')
 
-            if iteration < self.recursion_level:
+            if iteration < self.player_family_tree.depth:
                 self._print_whole_family_tree_(iteration+1, indent+"    ")
 
             break
@@ -101,7 +100,7 @@ class GameConsole:
         while 1:
             self._print_current_family_tree_()
 
-            if self.recursion_level == 0:
+            if self.player_family_tree.depth == 0:
                 traverse_message = "Where do you want to go? (M)other or (F)ather. You can also " \
                                    "type (l)eft or (r)ight (left for mother and right for " \
                                    "father). You can also (q)uit."
@@ -120,18 +119,15 @@ class GameConsole:
             while 1:
                 user_traverse_input = input(self.enter_input)
 
-                if self.recursion_level > 0:
+                if self.player_family_tree.depth > 0:
                     if user_traverse_input in traverse_child:
                         self.player_family_tree.go_to_child()
-                        self.recursion_level -= 1
                         break
                 if user_traverse_input in traverse_mother:
                     self.player_family_tree.go_to_mother()
-                    self.recursion_level += 1
                     break
                 elif user_traverse_input in traverse_father:
                     self.player_family_tree.go_to_father()
-                    self.recursion_level += 1
                     break
                 elif user_traverse_input in self.quit_strings:
                     self._end_game_()
