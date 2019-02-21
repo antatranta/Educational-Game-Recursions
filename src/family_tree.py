@@ -110,7 +110,7 @@ class TraversalStates(enum.Enum):
     FATHER = enum.auto()
     MOTHER = enum.auto()
     CHILD = enum.auto()
-    SELF = enum.auto()
+    ACTION = enum.auto()
 
 class FamilyTreeTraverser(ABC):
     """Class to help traverse a FamilyTree."""
@@ -151,14 +151,14 @@ class FamilyTreeTraverser(ABC):
         return True
 
     def _init_iter(self):
-        for state in self._recursive_function(self.tree.head):
+        for state in self._traverse(self.tree.head):
             if self._include_state(state):
                 yield state
 
-    def _recursive_function(self, node):
+    def _traverse(self, node):
         raise NotImplementedError
 
-    def _process_parent(self, parent, state, go_to_parent):
+    def _traverse_parent(self, parent, state, go_to_parent):
         """
         Process the recursive function on a parent node.
 
@@ -169,7 +169,7 @@ class FamilyTreeTraverser(ABC):
         # process parent
         go_to_parent()
         yield state
-        yield from self._recursive_function(parent)
+        yield from self._traverse(parent)
 
         # return to child after processing parent
         self.tree.go_to_child()
@@ -178,37 +178,37 @@ class FamilyTreeTraverser(ABC):
 class InOrderTraverser(FamilyTreeTraverser):
     """Class to help traverse a FamilyTree In-Order."""
 
-    def _recursive_function(self, node):
+    def _traverse(self, node):
         if node.father:
-            yield from self._process_parent(node.father, self.states.FATHER, self.tree.go_to_father)
+            yield from self._traverse_parent(node.father, self.states.FATHER, self.tree.go_to_father)
 
-        yield self.states.SELF
+        yield self.states.ACTION
 
         if node.mother:
-            yield from self._process_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
+            yield from self._traverse_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
 
 class PreOrderTraverser(FamilyTreeTraverser):
     """Class to help traverse a FamilyTree Pre-Order"""
 
-    def _recursive_function(self, node):
+    def _traverse(self, node):
         if node:
-            yield self.states.SELF
+            yield self.states.ACTION
 
         if node.father:
-            yield from self._process_parent(node.father, self.states.FATHER, self.tree.go_to_father)
+            yield from self._traverse_parent(node.father, self.states.FATHER, self.tree.go_to_father)
 
         if node.mother:
-            yield from self._process_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
+            yield from self._traverse_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
 
 class PostOrderTraverser(FamilyTreeTraverser):
     """Class to help traverse a FamilyTree Post-Order"""
 
-    def _recursive_function(self, node):
+    def _traverse(self, node):
         if node.father:
-            yield from self._process_parent(node.father, self.states.FATHER, self.tree.go_to_father)
+            yield from self._traverse_parent(node.father, self.states.FATHER, self.tree.go_to_father)
 
         if node.mother:
-            yield from self._process_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
+            yield from self._traverse_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
 
         if node:
-            yield self.states.SELF
+            yield self.states.ACTION
