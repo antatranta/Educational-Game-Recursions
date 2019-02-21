@@ -98,7 +98,6 @@ class FamilyTree:
 
 class TraversalStates(enum.Enum):
     """Enum to track FamilyTreeTraverser State."""
-    NONE = enum.auto()
     FATHER = enum.auto()
     MOTHER = enum.auto()
     CHILD = enum.auto()
@@ -143,9 +142,6 @@ class FamilyTreeTraverser(ABC):
         return True
 
     def _init_iter(self):
-        if self._include_state(self.states.NONE):
-            yield self.states.NONE
-
         for state in self._recursive_function(self.tree.head):
             if self._include_state(state):
                 yield state
