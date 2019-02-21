@@ -180,12 +180,14 @@ class InOrderTraverser(FamilyTreeTraverser):
 
     def _traverse(self, node):
         if node.father:
-            yield from self._traverse_parent(node.father, self.states.FATHER, self.tree.go_to_father)
+            yield from self._traverse_parent(node.father, self.states.FATHER,
+                                             self.tree.go_to_father)
 
         yield self.states.ACTION
 
         if node.mother:
-            yield from self._traverse_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
+            yield from self._traverse_parent(node.mother, self.states.MOTHER,
+                                             self.tree.go_to_mother)
 
 class PreOrderTraverser(FamilyTreeTraverser):
     """Class to help traverse a FamilyTree Pre-Order"""
@@ -195,20 +197,24 @@ class PreOrderTraverser(FamilyTreeTraverser):
             yield self.states.ACTION
 
         if node.father:
-            yield from self._traverse_parent(node.father, self.states.FATHER, self.tree.go_to_father)
+            yield from self._traverse_parent(node.father, self.states.FATHER,
+                                             self.tree.go_to_father)
 
         if node.mother:
-            yield from self._traverse_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
+            yield from self._traverse_parent(node.mother, self.states.MOTHER,
+                                             self.tree.go_to_mother)
 
 class PostOrderTraverser(FamilyTreeTraverser):
     """Class to help traverse a FamilyTree Post-Order"""
 
     def _traverse(self, node):
         if node.father:
-            yield from self._traverse_parent(node.father, self.states.FATHER, self.tree.go_to_father)
+            yield from self._traverse_parent(node.father, self.states.FATHER,
+                                             self.tree.go_to_father)
 
         if node.mother:
-            yield from self._traverse_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
+            yield from self._traverse_parent(node.mother, self.states.MOTHER,
+                                             self.tree.go_to_mother)
 
         if node:
             yield self.states.ACTION
