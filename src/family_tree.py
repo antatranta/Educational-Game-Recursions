@@ -59,6 +59,11 @@ class FamilyTree:
         """Get an generator that will traverse the tree pre-order."""
         return PreOrderTraverser(self, *args, **kwargs)
 
+    def postorder(self, *args, **kwargs):
+        """Get an generator that will traverse the tree post-order."""
+        return PostOrderTraverser(self, *args, **kwargs)
+
+
     def go_to_mother(self):
         """
         Move to the current `head` mother.
@@ -194,3 +199,16 @@ class PreOrderTraverser(FamilyTreeTraverser):
 
         if node.mother:
             yield from self._process_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
+
+class PostOrderTraverser(FamilyTreeTraverser):
+    """Class to help traverse a FamilyTree Post-Order"""
+
+    def _recursive_function(self, node):
+        if node.father:
+            yield from self._process_parent(node.father, self.states.FATHER, self.tree.go_to_father)
+
+        if node.mother:
+            yield from self._process_parent(node.mother, self.states.MOTHER, self.tree.go_to_mother)
+
+        if node:
+            yield self.states.SELF
