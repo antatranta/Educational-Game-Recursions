@@ -1,5 +1,5 @@
 """Entry point to the game."""
 
-from game_console import GameConsole
+from game_graphical import GameGraphical
 
-GameConsole().start_game()
+GameGraphical().start_game()
