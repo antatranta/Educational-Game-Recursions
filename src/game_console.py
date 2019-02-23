@@ -13,11 +13,11 @@ class GameConsole:
 
     animation_speed = 1 # number of seconds between animation frames
 
-    def __init__(self):
+    def __init__(self, tree=None):
         self.enter_input = "Please enter an input: "
         self.error_message = "That is not a correct input!"
         self.game_state = 0
-        self.player_family_tree = None
+        self.player_family_tree = tree
         self.quit_strings = ["quit", "q"]
 
     def start_game(self):
@@ -46,8 +46,6 @@ class GameConsole:
     @staticmethod
     def _end_game_():
         """ Quits the game """
-        print("Quitting the game in 3 seconds\n")
-        time.sleep(3)
         sys.exit("Ended Game")
 
     def _print_current_family_tree_(self):
@@ -117,10 +115,12 @@ class GameConsole:
         """ The actual main game where it will handle user input to create a family tree that
             takes in user input to traverse that same family tree while printing out call
             stacks and what has been popped and created. """
-        get_player_name = "What is your name?"
-        print(get_player_name)
-        player_name = input(self.enter_input)
-        self.player_family_tree = self._initialize_tree(player_name)
+
+        if self.player_family_tree is None:
+            get_player_name = "What is your name?"
+            print(get_player_name)
+            player_name = input(self.enter_input)
+            self.player_family_tree = self._initialize_tree(player_name)
 
         while 1:
             self._print_current_family_tree_()
