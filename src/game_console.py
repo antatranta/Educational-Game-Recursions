@@ -115,7 +115,6 @@ class GameConsole:
         """ The actual main game where it will handle user input to create a family tree that
             takes in user input to traverse that same family tree while printing out call
             stacks and what has been popped and created. """
-
         if self.player_family_tree is None:
             get_player_name = "What is your name?"
             print(get_player_name)
@@ -124,58 +123,64 @@ class GameConsole:
 
         while 1:
             self._print_current_family_tree_()
+            self.display_commands()
+            self.await_command()
 
-            traverse_message = ("Where do you want to go?\n"
-                                "    (M)other (F)ather")
+    def display_commands(self):
+        """Display available commands in the console."""
+        traverse_message = ("Where do you want to go?\n"
+                            "    (M)other (F)ather")
 
-            if self.player_family_tree.depth > 0:
-                traverse_message += "(C)hild."
+        if self.player_family_tree.depth > 0:
+            traverse_message += "(C)hild."
 
-            traverse_message += ("\nYou can also:\n"
-                                 "    play (in)order traversal\n"
-                                 "    play (pre)order traversal\n"
-                                 "    play (post)order traversal\n"
-                                 "    (Q)uit")
+        traverse_message += ("\nYou can also:\n"
+                             "    play (in)order traversal\n"
+                             "    play (pre)order traversal\n"
+                             "    play (post)order traversal\n"
+                             "    (Q)uit")
 
-            print(traverse_message)
+        print(traverse_message)
 
-            traverse_child = ["child", "c", "back", "b"]
-            traverse_father = ["father", "f", "left", "l"]
-            traverse_mother = ["mother", "m", "right", "r"]
-            play_inorder = ["in", "inorder"]
-            play_preorder = ["pre", "preorder"]
-            play_postorder = ["post", "postorder"]
+    def await_command(self):
+        """Wait for and execute user command."""
+        traverse_child = ["child", "c", "back", "b"]
+        traverse_father = ["father", "f", "left", "l"]
+        traverse_mother = ["mother", "m", "right", "r"]
+        play_inorder = ["in", "inorder"]
+        play_preorder = ["pre", "preorder"]
+        play_postorder = ["post", "postorder"]
 
-            while 1:
-                user_traverse_input = input(self.enter_input).lower()
+        while 1:
+            user_traverse_input = input(self.enter_input).lower()
 
-                if self.player_family_tree.depth > 0 and user_traverse_input in traverse_child:
-                    self.player_family_tree.go_to_child()
-                    break
+            if self.player_family_tree.depth > 0 and user_traverse_input in traverse_child:
+                self.player_family_tree.go_to_child()
+                break
 
-                elif user_traverse_input in traverse_mother:
-                    self.player_family_tree.go_to_mother()
-                    break
+            elif user_traverse_input in traverse_mother:
+                self.player_family_tree.go_to_mother()
+                break
 
-                elif user_traverse_input in traverse_father:
-                    self.player_family_tree.go_to_father()
-                    break
+            elif user_traverse_input in traverse_father:
+                self.player_family_tree.go_to_father()
+                break
 
-                elif user_traverse_input in play_inorder:
-                    self._play_traversal(self.player_family_tree.inorder())
-                    break
+            elif user_traverse_input in play_inorder:
+                self._play_traversal(self.player_family_tree.inorder())
+                break
 
-                elif user_traverse_input in play_preorder:
-                    self._play_traversal(self.player_family_tree.preorder())
-                    break
+            elif user_traverse_input in play_preorder:
+                self._play_traversal(self.player_family_tree.preorder())
+                break
 
-                elif user_traverse_input in play_postorder:
-                    self._play_traversal(self.player_family_tree.postorder())
-                    break
+            elif user_traverse_input in play_postorder:
+                self._play_traversal(self.player_family_tree.postorder())
+                break
 
-                elif user_traverse_input in self.quit_strings:
-                    self._end_game_()
-                    break
+            elif user_traverse_input in self.quit_strings:
+                self._end_game_()
+                break
 
-                else:
-                    print(self.error_message)
+            else:
+                print(self.error_message)
