@@ -6,6 +6,7 @@ import os
 
 from family_tree import FamilyTree
 from family_tree_node import FamilyTreeNode
+from game_questions import GameQuestions
 
 
 class GameConsole:
@@ -96,6 +97,10 @@ class GameConsole:
         """Clear the console of all text."""
         os.system("cls" if os.name == "nt" else "clear")
 
+    def _game_question(self):
+        question = GameQuestions(time.time())
+        question.compare_answers()
+
     def _play_traversal(self, traverser):
         """Play traversal animation in console."""
         output = []
@@ -135,6 +140,7 @@ class GameConsole:
                                  "    play (in)order traversal\n"
                                  "    play (pre)order traversal\n"
                                  "    play (post)order traversal\n"
+                                 "    play (g)ame\n"
                                  "    (Q)uit")
 
             print(traverse_message)
@@ -145,6 +151,7 @@ class GameConsole:
             play_inorder = ["in", "inorder"]
             play_preorder = ["pre", "preorder"]
             play_postorder = ["post", "postorder"]
+            play_game = ["game", "g"]
 
             while 1:
                 user_traverse_input = input(self.enter_input).lower()
@@ -177,5 +184,8 @@ class GameConsole:
                     self._end_game_()
                     break
 
+                elif user_traverse_input in play_game:
+                    self._game_question()
+                    break
                 else:
                     print(self.error_message)
