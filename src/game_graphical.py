@@ -3,9 +3,6 @@
 import pygame
 import pygame.locals
 
-from family_tree import FamilyTree
-from family_tree_node import FamilyTreeNode
-
 from graphical_tree import GraphicalTree
 from graphical_call_stack import GraphicalCallStack
 
@@ -17,41 +14,35 @@ BACKGROUND_COLOR = (155, 155, 155)
 class GameGraphical:
     """Class to help in starting a new Graphical Game."""
 
-    def __init__(self):
+    def __init__(self, tree):
         self.fps = pygame.time.Clock()
+        self.tree = tree
 
     def start_game(self):
         """Start a Graphical Game."""
         pygame.init()
         screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-        tree = self._initialize_tree()
-        graphical_tree = GraphicalTree(tree)
-        call_stack = GraphicalCallStack(tree.call_stack)
+        graphical_tree = GraphicalTree(self.tree)
+        call_stack = GraphicalCallStack(self.tree.call_stack)
 
         while 1:
-            for event in pygame.event.get():
-                if event.type is pygame.locals.QUIT:
-                    return # exit program when closing the window
+            self._handle_events()
 
-            # Render objects to screen
+            # Clear screen
             screen.fill(BACKGROUND_COLOR)
 
+            # Render objects to screen
             graphical_tree.draw(screen)
             call_stack.draw(screen)
 
+            # Redraw screen
             pygame.display.flip()
             self.fps.tick(FPS)
 
     @classmethod
-    def _initialize_tree(cls):
-        father = FamilyTreeNode("Father",
-                                FamilyTreeNode("Paternal Grandfather"),
-                                FamilyTreeNode("Paternal Grandmother"))
+    def _handle_events(cls):
+        for event in pygame.event.get():
+            if event.type is pygame.locals.QUIT:
+                return # exit program when closing the window
 
-        mother = FamilyTreeNode("Mother",
-                                FamilyTreeNode("Maternal Grandfather"),
-                                FamilyTreeNode("Maternal Grandmother"))
-
-        player = FamilyTreeNode("Me", father, mother)
-        return FamilyTree(player)
