@@ -95,7 +95,8 @@ class GameConsole:
         """Clear the console of all text."""
         os.system("cls" if os.name == "nt" else "clear")
 
-    def _game_question(self):
+    @staticmethod
+    def _game_question_():
         question = GameQuestions(time.time())
         question.compare_answers()
 
@@ -190,7 +191,7 @@ class GameConsole:
                 break
 
             elif user_traverse_input in play_game:
-                self._game_question()
+                self._game_question_()
                 break
 
             else:

@@ -51,9 +51,8 @@ class GameQuestions:
 
     def compare_answers(self):
         """ Compares the answers with the user input corresponding to the question """
-        if len(self.questions) == 0:
-            print ("\nGAME DONE\n")
-            return
+        if len(self.questions) == 0:  # pylint: disable=len-as-condition
+            print("\nGAME DONE\n")
         else:
             print(self.game_questions())
             while True:
@@ -67,8 +66,8 @@ class GameQuestions:
                     break
             if int(answer) == self.answers[self.question_number]:
                 print("\nCorrect!")
-                del (self.questions[self.question_number])
-                del (self.answers[self.question_number])
+                del self.questions[self.question_number]
+                del self.answers[self.question_number]
                 self.compare_answers()
             else:
                 print("\nIncorrect! Try Again: \n")
