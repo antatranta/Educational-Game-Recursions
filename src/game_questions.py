@@ -47,23 +47,29 @@ class GameQuestions:
             question """
         self.question_number = random.randint(0, len(self.questions) - 1)
 
-        return self.questions.pop(self.question_number)
+        return self.questions[self.question_number]
 
     def compare_answers(self):
         """ Compares the answers with the user input corresponding to the question """
-        print(self.game_questions())
-        while True:
-            try:
-                prompt = "\nEnter your answer: "
-                answer = int(input(prompt))
-            except ValueError:
-                print("\nIncorrect Value! Needs to be integer value.\n")
-                continue
-            else:
-                break
-        if int(answer) == self.answers[self.question_number]:
-            print("\nCorrect!")
-            self.compare_answers()
+        if len(self.questions) == 0:
+            print ("\nGAME DONE\n")
+            return
         else:
-            print("\nIncorrect!\n")
-        return
+            print(self.game_questions())
+            while True:
+                try:
+                    prompt = "\nEnter your answer: "
+                    answer = int(input(prompt))
+                except ValueError:
+                    print("\nIncorrect Value! Needs to be integer value.\n")
+                    continue
+                else:
+                    break
+            if int(answer) == self.answers[self.question_number]:
+                print("\nCorrect!")
+                del (self.questions[self.question_number])
+                del (self.answers[self.question_number])
+                self.compare_answers()
+            else:
+                print("\nIncorrect! Try Again: \n")
+                self.compare_answers()
