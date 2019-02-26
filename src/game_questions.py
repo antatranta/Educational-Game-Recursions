@@ -38,7 +38,7 @@ class GameQuestions:
 
         question_4 = "\nIf there wasn\'t a max level in this tree, what level would your " \
                      "great great grandparents be located in?"
-        answer_4 = 5
+        answer_4 = 4
         self.questions.append(question_4)
         self.answers.append(answer_4)
 
