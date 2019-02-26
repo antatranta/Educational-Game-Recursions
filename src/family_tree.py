@@ -26,6 +26,11 @@ class FamilyTree:
         return len(self.call_stack) - 1
 
     @property
+    def max_depth(self):
+        """Maximum depth of this tree."""
+        return self._recursive_max_depth(self.root)
+
+    @property
     def size(self):
         """Total number of nodes in the tree."""
         return self._recursive_size(self.root)
@@ -96,6 +101,13 @@ class FamilyTree:
             return None
         self.call_stack.pop()
         return self.head
+
+    def _recursive_max_depth(self, node):
+        if not node:
+            return 0
+        father = self._recursive_max_depth(node.father)
+        mother = self._recursive_max_depth(node.mother)
+        return 1 + max(father, mother)
 
     def _recursive_size(self, node):
         if node is None:

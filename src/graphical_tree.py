@@ -19,7 +19,7 @@ class GraphicalTree:
     def draw(self, screen):
         """Draw this object to screen."""
         x_pos = int(screen.get_width() / 2)
-        y_pos = int(screen.get_height() - NODE_SIZE)
+        y_pos = int(screen.get_height() - NODE_SIZE * 1.5)
         self._draw_node(screen, 0, self.tree.root, x_pos, y_pos)
 
     def _drawcaption(self, screen, caption, font_color, x, y):
@@ -38,7 +38,7 @@ class GraphicalTree:
             text_color = WHITE
 
         x_spread = int((screen.get_width() / 2) / 2 ** (depth_count + 1))
-        y_spread = NODE_SIZE * 4
+        y_spread = int(0.8 * (screen.get_height()) / (self.tree.max_depth - depth_count))
 
         if node.father:
             pygame.draw.line(screen, BLACK, (x, y), (x - x_spread, y - y_spread))
