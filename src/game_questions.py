@@ -70,5 +70,5 @@ class GameQuestions:
                 del self.answers[self.question_number]
                 self.compare_answers()
             else:
-                print("\nIncorrect! Try Again: \n")
+                print("\nIncorrect!\n")
                 self.compare_answers()
