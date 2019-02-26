@@ -15,5 +15,3 @@ if __name__ == "__main__":
 
     threading.Thread(target=GameGraphical(tree=TREE).start_game).start()
     GameConsole(tree=TREE).start_game()
-
-GameGraphical().start_game()

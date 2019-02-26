@@ -1,8 +1,9 @@
 """Game class that displays the game Graphically."""
+# pylint: disable=no-member
+import sys
 
 import pygame
 import pygame.locals
-import sys
 
 from graphical_tree import GraphicalTree
 from graphical_call_stack import GraphicalCallStack
@@ -46,4 +47,3 @@ class GameGraphical:
         for event in pygame.event.get():
             if event.type is pygame.locals.QUIT:
                 sys.exit() # exit program when closing the window
-
