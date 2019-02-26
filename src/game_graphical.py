@@ -2,6 +2,7 @@
 
 import pygame
 import pygame.locals
+import sys
 
 from graphical_tree import GraphicalTree
 from graphical_call_stack import GraphicalCallStack
@@ -44,5 +45,5 @@ class GameGraphical:
     def _handle_events(cls):
         for event in pygame.event.get():
             if event.type is pygame.locals.QUIT:
-                return # exit program when closing the window
+                sys.exit() # exit program when closing the window
 
