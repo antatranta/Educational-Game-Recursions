@@ -126,6 +126,19 @@ class TraversalStates(enum.Enum):
     ACTION = enum.auto()
     DONE = enum.auto()
 
+    def __str__(self):
+        if self is self.START:
+            return "traverse(node)"
+        elif self is self.ACTION:
+            return "print(node)"
+        elif self is self.FATHER:
+            return "traverse(node.father)"
+        elif self is self.MOTHER:
+            return "traverse(node.mother)"
+        elif self is self.CHILD or self is self.DONE:
+            return "return"
+        return ""
+
 class FamilyTreeTraverser(ABC):
     """Class to help traverse a FamilyTree."""
 
@@ -157,6 +170,10 @@ class FamilyTreeTraverser(ABC):
 
     def __next__(self):
         return next(self._iter)
+
+    @property
+    def pseudo(self):
+        raise NotImplementedError
 
     def _include_state(self, state):
         if self.exclude is not None and state in self.exclude:
@@ -205,6 +222,14 @@ class FamilyTreeTraverser(ABC):
 class InOrderTraverser(FamilyTreeTraverser):
     """Class to help traverse a FamilyTree In-Order."""
 
+    @property
+    def pseudo(self):
+        return ("def traverse(node):\n"
+                "    traverse(node.father)\n"
+                "    print(node)\n"
+                "    traverse(node.mother)\n"
+                "    return")
+
     def _traverse(self, node):
         if node.father:
             yield from self._traverse_parent(node.father, self.states.FATHER,
@@ -218,6 +243,14 @@ class InOrderTraverser(FamilyTreeTraverser):
 
 class PreOrderTraverser(FamilyTreeTraverser):
     """Class to help traverse a FamilyTree Pre-Order"""
+
+    @property
+    def pseudo(self):
+        return ("def traverse(node):\n"
+                "    print(node)\n"
+                "    traverse(node.father)\n"
+                "    traverse(node.mother)\n"
+                "    return")
 
     def _traverse(self, node):
         if node:
@@ -233,6 +266,15 @@ class PreOrderTraverser(FamilyTreeTraverser):
 
 class PostOrderTraverser(FamilyTreeTraverser):
     """Class to help traverse a FamilyTree Post-Order"""
+
+    @property
+    def pseudo(self):
+        return ("def traverse(node):\n"
+                "    traverse(node.father)\n"
+                "    traverse(node.mother)\n"
+                "    print(node)\n"
+                "    return")
+
 
     def _traverse(self, node):
         if node.father:
