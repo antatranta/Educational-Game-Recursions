@@ -142,7 +142,13 @@ class FamilyTreeTraverser(ABC):
         self.tree = tree
         self.include = include
         self.exclude = exclude
+        self.history = []
         self._iter = iter(self._init_iter())
+
+    @property
+    def state(self):
+        """Get the current state of the Traversal"""
+        return self.history[-1]
 
     def __iter__(self):
         return self._iter
@@ -165,6 +171,7 @@ class FamilyTreeTraverser(ABC):
     def _init_iter(self):
         for state in self._traverse(self.tree.head):
             if self._include_state(state):
+                self.history.append(state)
                 yield state
 
     def _traverse(self, node):
