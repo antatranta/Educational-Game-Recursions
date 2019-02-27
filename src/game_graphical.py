@@ -19,6 +19,7 @@ class GameGraphical:
     def __init__(self, tree):
         self.fps = pygame.time.Clock()
         self.tree = tree
+        self.state = None
 
     def start_game(self):
         """Start a Graphical Game."""
@@ -43,7 +44,12 @@ class GameGraphical:
             self.fps.tick(FPS)
 
     @classmethod
+    def quit(cls):
+        """Exit the graphical game."""
+        sys.exit()
+
+    @classmethod
     def _handle_events(cls):
         for event in pygame.event.get():
             if event.type is pygame.locals.QUIT:
-                sys.exit() # exit program when closing the window
+                cls.quit()

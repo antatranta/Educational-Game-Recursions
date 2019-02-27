@@ -1,9 +1,10 @@
 """ Game console class that handles user input and front-end display to command line interface """
-
+import threading
 import time
 import sys
 import os
 
+from game_graphical import GameGraphical
 from family_tree import FamilyTree
 from family_tree_node import FamilyTreeNode
 from game_questions import GameQuestions
@@ -17,9 +18,9 @@ class GameConsole:
     def __init__(self, tree=None):
         self.enter_input = "Please enter an input: "
         self.error_message = "That is not a correct input!"
-        self.game_state = 0
         self.player_family_tree = tree
         self.quit_strings = ["quit", "q"]
+        self.gui = None
 
     def start_game(self):
         """ Starts a new game in that a welcome message appears and ask if the user want to play
@@ -36,8 +37,18 @@ class GameConsole:
             user_input = input(self.enter_input).lower()
 
             if user_input in play_strings:
-                self.main_game()
+                if self.player_family_tree is None:
+                    get_player_name = "What is your name?"
+                    print(get_player_name)
+                    player_name = input(self.enter_input)
+                    tree = self._initialize_tree(player_name)
+                    self.player_family_tree = tree
+
+                threading.Thread(target=self.main_game, daemon=True).start()
+                self.gui = GameGraphical(tree=self.player_family_tree)
+                self.gui.start_game()
                 break
+
             elif user_input in self.quit_strings:
                 self._end_game_()
                 break
@@ -78,16 +89,9 @@ class GameConsole:
 
     @classmethod
     def _initialize_tree(cls, player_name):
-        father = FamilyTreeNode("Father",
-                                father=FamilyTreeNode("Paternal Grandfather"),
-                                mother=FamilyTreeNode("Paternal Grandmother"))
-
-        mother = FamilyTreeNode("Mother",
-                                father=FamilyTreeNode("Maternal Grandfather"),
-                                mother=FamilyTreeNode("Maternal Grandmother"))
-
-        player = FamilyTreeNode(player_name, father=father, mother=mother)
-
+        father = FamilyTreeNode("Father", FamilyTreeNode("Dad's Dad"), FamilyTreeNode("Dad's Mom"))
+        mother = FamilyTreeNode("Mother", FamilyTreeNode("Mom's Dad"), FamilyTreeNode("Mom's Mom"))
+        player = FamilyTreeNode(player_name, father, mother)
         return FamilyTree(player)
 
     @classmethod
@@ -121,12 +125,6 @@ class GameConsole:
         """ The actual main game where it will handle user input to create a family tree that
             takes in user input to traverse that same family tree while printing out call
             stacks and what has been popped and created. """
-        if self.player_family_tree is None:
-            get_player_name = "What is your name?"
-            print(get_player_name)
-            player_name = input(self.enter_input)
-            self.player_family_tree = self._initialize_tree(player_name)
-
         while 1:
             self._print_current_family_tree_()
             self.display_commands()
