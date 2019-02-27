@@ -119,10 +119,12 @@ class FamilyTree:
 
 class TraversalStates(enum.Enum):
     """Enum to track FamilyTreeTraverser State."""
+    START = enum.auto()
     FATHER = enum.auto()
     MOTHER = enum.auto()
     CHILD = enum.auto()
     ACTION = enum.auto()
+    DONE = enum.auto()
 
 class FamilyTreeTraverser(ABC):
     """Class to help traverse a FamilyTree."""
@@ -169,10 +171,16 @@ class FamilyTreeTraverser(ABC):
         return True
 
     def _init_iter(self):
+        self.history.append(self.states.START)
+        yield self.states.START
+
         for state in self._traverse(self.tree.head):
             if self._include_state(state):
                 self.history.append(state)
                 yield state
+
+        self.history.append(self.states.DONE)
+        yield self.states.DONE
 
     def _traverse(self, node):
         raise NotImplementedError
