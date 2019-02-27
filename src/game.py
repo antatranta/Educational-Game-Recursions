@@ -13,5 +13,5 @@ if __name__ == "__main__":
     D = FamilyTreeNode("Me", B, F)
     TREE = FamilyTree(D)
 
-    threading.Thread(target=GameConsole(tree=TREE).start_game).start()
+    threading.Thread(target=GameConsole(tree=TREE).start_game, daemon=True).start()
     GameGraphical(tree=TREE).start_game()
