@@ -16,28 +16,29 @@ class GameQuestions:
 
     def _add_questions_and_answers_(self):
         """ Private method that adds questions to the list defined in init """
-        question_0 = "\nWhen you start the game, what recursion level do you start on?"
+        question_0 = "\nWhat recursion level is \"me\"?"
         answer_0 = 0
         self.questions.append(question_0)
         self.answers.append(answer_0)
 
-        question_1 = "\nWhat\'s the max level recursion can you achieve with this game?"
+        question_1 = "\nWhat\'s the max recursion level that you can achieve in this game?"
         answer_1 = 2
         self.questions.append(question_1)
         self.answers.append(answer_1)
 
-        question_2 = "\nWhat recursion level are your parents in?"
+        question_2 = "\nWhat recursion level are the parents in?"
         answer_2 = 1
         self.questions.append(question_2)
         self.answers.append(answer_2)
 
-        question_3 = "\nWhat recursion level is your grandmother in?"
+        question_3 = "\nWhat recursion level is the grandmother in?"
         answer_3 = 2
         self.questions.append(question_3)
         self.answers.append(answer_3)
 
-        question_4 = "\nIf there wasn\'t a max level in this tree, what level would your " \
-                     "great great grandparents be located in?"
+        question_4 = "\nUsing the tree for guidance on recursion levels." \
+                     " Interpret what recursion level would your great great grandparents be" \
+                     " located in?"
         answer_4 = 4
         self.questions.append(question_4)
         self.answers.append(answer_4)
