@@ -25,7 +25,9 @@ class GraphicalTree:
         self._draw_node(screen, 0, self.tree.root, x_pos, y_pos)
         myfont = pygame.font.SysFont('Comic Sans MS', 20)
         textsurface1 = myfont.render(f"recursion level: {self.tree.depth}", False, (0, 0, 0))
-        screen.blit(textsurface1, (400, 450))
+        #screen.blit(textsurface1, (500, 450))
+        screen.blit(textsurface1, (int(screen.get_width() * .79), int(screen.get_height() * .94)))
+
 
 
     def _drawcaption(self, screen, caption, font_color, x, y):
