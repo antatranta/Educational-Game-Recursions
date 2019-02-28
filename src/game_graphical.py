@@ -26,7 +26,7 @@ class GameGraphical:
         screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         graphical_tree = GraphicalTree(self.tree)
-        call_stack = GraphicalCallStack(self.tree.call_stack)
+        call_stack = GraphicalCallStack(self.tree.call_stack, self.tree)
 
         while 1:
             self._handle_events()
