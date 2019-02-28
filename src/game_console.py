@@ -107,20 +107,13 @@ class GameConsole:
     def _play_traversal(self, traverser):
         """Play traversal animation in console."""
         self.gui.start_traversal(traverser)
+        print("playing animation...")
         output = []
 
         for state in traverser:
-            self._clear()
-            print(self.player_family_tree.tree_string)
-            print("Call Stack:", [str(e) for e in self.player_family_tree.call_stack])
-
-            if state is traverser.states.ACTION:
-                print(f"print({self.player_family_tree.head})")
-                output.append(f"'{self.player_family_tree.head}'")
-
-            print("Output:", " ".join(output))
-
             time.sleep(self.animation_speed)
+
+        input("press enter to continue...")
         self.gui.end_traversal()
 
     def main_game(self):
