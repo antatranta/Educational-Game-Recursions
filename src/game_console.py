@@ -60,20 +60,6 @@ class GameConsole:
         """ Quits the game """
         sys.exit("Ended Game")
 
-    def _print_current_family_tree_(self):
-        """ Prints out where you are currently in the family tree and the root in addition to
-            the recursion level """
-        family_tree_message = "Here is your family tree:\n"
-        print(family_tree_message)
-        print(self.player_family_tree.tree_string)
-
-        current_node = "This is where you are currently at in the family tree: \n"
-        print(current_node)
-        self._print_whole_family_tree_(0)
-
-        recursion_message = "\nThis is where you are on the recursion level: "
-        print(recursion_message, self.player_family_tree.depth, "\n", sep='')
-
     def _print_whole_family_tree_(self, iteration, indent=""):
         """ Prints out the user's family tree with tabs so it shows how deep the recursion
             is """
@@ -121,7 +107,7 @@ class GameConsole:
             takes in user input to traverse that same family tree while printing out call
             stacks and what has been popped and created. """
         while 1:
-            self._print_current_family_tree_()
+            self._clear()
             self.display_commands()
             self.await_command()
 
