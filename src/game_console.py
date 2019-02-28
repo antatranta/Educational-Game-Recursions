@@ -106,6 +106,7 @@ class GameConsole:
 
     def _play_traversal(self, traverser):
         """Play traversal animation in console."""
+        self.gui.start_traversal(traverser)
         output = []
 
         for state in traverser:
@@ -120,6 +121,7 @@ class GameConsole:
             print("Output:", " ".join(output))
 
             time.sleep(self.animation_speed)
+        self.gui.end_traversal()
 
     def main_game(self):
         """ The actual main game where it will handle user input to create a family tree that
