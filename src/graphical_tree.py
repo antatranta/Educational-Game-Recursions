@@ -23,13 +23,10 @@ class GraphicalTree:
         x_pos = int(screen.get_width() / 2)
         y_pos = int(screen.get_height() - NODE_SIZE * 1.5)
         self._draw_node(screen, 0, self.tree.root, x_pos, y_pos)
-        myfont = pygame.font.SysFont('Comic Sans MS', 20)
-        textsurface1 = myfont.render("recursion level: ", False, (0, 0, 0))
+        myfont = pygame.font.SysFont('Helvetica', 20)
+        textsurface1 = myfont.render(f"recursion level: {self.tree.depth}", False, (0, 0, 0))
         screen.blit(textsurface1, (500, 450))
 
-        """" self.tree.depth has the formula already calculated for us """
-        textsurface2 = myfont.render(str(self.tree.depth), False, (0, 0, 0))
-        screen.blit(textsurface2, (600, 450))
 
     def _drawcaption(self, screen, caption, font_color, x, y):
         # pylint: disable=invalid-name,too-many-arguments
