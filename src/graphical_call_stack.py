@@ -5,8 +5,9 @@ import pygame
 class GraphicalCallStack:
     """Graphical representation of a Call Stack."""
 
-    def __init__(self, call_stack):
+    def __init__(self, call_stack, tree):
         self.call_stack = call_stack
+        self.tree = tree
 
     def draw(self, screen):
         """Draw this object to screen."""
@@ -15,7 +16,7 @@ class GraphicalCallStack:
         y = 0
 
         for node in self.call_stack:
-            my_font = pygame.font.SysFont('Comic Sans MS', 12)
+            my_font = pygame.font.SysFont('Comic Sans MS', 20)
             text_surface = my_font.render(node.name, False, (0, 0, 0))
             screen.blit(text_surface, (x, y))
             x += 12
