@@ -1,12 +1,14 @@
 """Graphical representation of a Traversal."""
 
 import pygame
+import os
 
 class GraphicalTraverser:
     def __init__(self, traverser):
         self.traverser = traverser
         self.states = traverser.states
-        self.font = pygame.font.SysFont('Consolas', 12)
+        #self.font = pygame.font.SysFont('Consolas', 12)
+        self.font = pygame.font.Font(os.path.join(".", "src", "Oxygen_Mono", "OxygenMono-Regular.ttf"), 10)
 
     def _draw_text(self, screen, text, pos, color=(0, 0, 0), *, split_char='\n', background=None):
         # pylint: disable=invalid-name

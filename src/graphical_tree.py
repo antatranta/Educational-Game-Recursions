@@ -21,7 +21,8 @@ class GraphicalTree:
 
     def __init__(self, tree):
         self.tree = tree
-        self.font = pygame.font.Font(os.path.join(".", "src", "Varela_Round", "VarelaRound-Regular.ttf"), 18)
+        #self.font = pygame.font.Font(os.path.join(".", "src", "Varela_Round", "VarelaRound-Regular.ttf"), 18)
+        self.font = pygame.font.Font(os.path.join(".", "src", "Oxygen_Mono", "OxygenMono-Regular.ttf"), 12)
 
     def draw(self, screen):
         """Draw this object to screen."""
