@@ -6,7 +6,6 @@ import pygame
 import pygame.locals
 
 from graphical_tree import GraphicalTree
-from graphical_call_stack import GraphicalCallStack
 from graphical_traverser import GraphicalTraverser
 
 SCREEN_WIDTH = 640
@@ -25,9 +24,11 @@ class GameGraphical:
         self.end_game = False
 
     def start_traversal(self, traverser):
+        """Display traverser graphically."""
         self._traverser = GraphicalTraverser(traverser)
 
     def end_traversal(self):
+        """End graphical display of traversal."""
         self._traverser = None
 
     def start_game(self):
@@ -36,9 +37,8 @@ class GameGraphical:
         screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         graphical_tree = GraphicalTree(self.tree)
-        call_stack = GraphicalCallStack(self.tree.call_stack, self.tree)
 
-        while 1:
+        while True:
             if self.end_game:
                 self.quit()
 

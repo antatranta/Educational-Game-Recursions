@@ -94,9 +94,8 @@ class GameConsole:
         """Play traversal animation in console."""
         self.gui.start_traversal(traverser)
         print("playing animation...")
-        output = []
 
-        for state in traverser:
+        for _ in traverser:
             time.sleep(self.animation_speed)
 
         input("press enter to continue...")

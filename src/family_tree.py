@@ -129,13 +129,13 @@ class TraversalStates(enum.Enum):
     def __str__(self):
         if self is self.START:
             return "traverse(node)"
-        elif self is self.ACTION:
+        if self is self.ACTION:
             return "print(node)"
-        elif self is self.FATHER:
+        if self is self.FATHER:
             return "traverse(node.father)"
-        elif self is self.MOTHER:
+        if self is self.MOTHER:
             return "traverse(node.mother)"
-        elif self is self.CHILD or self is self.DONE:
+        if self is self.CHILD or self is self.DONE:
             return "return"
         return ""
 
@@ -173,6 +173,7 @@ class FamilyTreeTraverser(ABC):
 
     @property
     def pseudo(self):
+        """Pseudo code of the traversal function."""
         raise NotImplementedError
 
     def _include_state(self, state):
