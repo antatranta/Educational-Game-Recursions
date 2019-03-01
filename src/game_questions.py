@@ -11,32 +11,65 @@ class GameQuestions:
         random.seed(seed)
         self.question_number = 0
         self.questions = []
-        self._add_questions_()
+        self.answers = []
+        self._add_questions_and_answers_()
 
-    def _add_questions_(self):
+    def _add_questions_and_answers_(self):
         """ Private method that adds questions to the list defined in init """
-        question_0 = "When you start the game, what recursion level do you start on?"
+        question_0 = "\nWhat recursion level is \"me\"?"
+        answer_0 = 0
         self.questions.append(question_0)
+        self.answers.append(answer_0)
 
-        question_1 = "What\'s the max level recursion can you achieve with this game?"
+        question_1 = "\nWhat\'s the max recursion level that you can achieve in this game?"
+        answer_1 = 2
         self.questions.append(question_1)
+        self.answers.append(answer_1)
 
-        question_2 = "What recursion level are your parents in?"
+        question_2 = "\nWhat recursion level are the parents in?"
+        answer_2 = 1
         self.questions.append(question_2)
+        self.answers.append(answer_2)
 
-        question_3 = "What recursion level is your grandmother in?"
+        question_3 = "\nWhat recursion level is the grandmother in?"
+        answer_3 = 2
         self.questions.append(question_3)
+        self.answers.append(answer_3)
 
-        question_4 = "If there wasn\'t a max level in this tree, what level would your " \
-                     "great great grandparents be located in?"
+        question_4 = "\nUsing the tree for guidance on recursion levels." \
+                     " Interpret what recursion level would your great great grandparents be" \
+                     " located in?"
+        answer_4 = 4
         self.questions.append(question_4)
+        self.answers.append(answer_4)
 
     def game_questions(self):
         """ The list of game questions to pick at randomly returns a string of the
             question """
         self.question_number = random.randint(0, len(self.questions) - 1)
 
-        return self.questions.pop(self.question_number)
+        return self.questions[self.question_number]
 
-    def compare_answers(self, player_input):
+    def compare_answers(self):
         """ Compares the answers with the user input corresponding to the question """
+        if len(self.questions) == 0:  # pylint: disable=len-as-condition
+            print("\nGAME DONE\n")
+        else:
+            print(self.game_questions())
+            while True:
+                try:
+                    prompt = "\nEnter your answer: "
+                    answer = int(input(prompt))
+                except ValueError:
+                    print("\nIncorrect Value! Needs to be integer value.\n")
+                    continue
+                else:
+                    break
+            if int(answer) == self.answers[self.question_number]:
+                print("\nCorrect!")
+                del self.questions[self.question_number]
+                del self.answers[self.question_number]
+                self.compare_answers()
+            else:
+                print("\nIncorrect!\n")
+                self.compare_answers()

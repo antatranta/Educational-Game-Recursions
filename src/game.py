@@ -1,7 +1,4 @@
 """Entry point to the game."""
-import threading
-
-from game_graphical import GameGraphical
 from game_console import GameConsole
 
 from family_tree import FamilyTree
@@ -13,5 +10,4 @@ if __name__ == "__main__":
     D = FamilyTreeNode("Me", B, F)
     TREE = FamilyTree(D)
 
-    threading.Thread(target=GameGraphical(tree=TREE).start_game).start()
     GameConsole(tree=TREE).start_game()
