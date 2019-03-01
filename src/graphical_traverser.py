@@ -3,6 +3,8 @@
 import pygame
 
 class GraphicalTraverser:
+    """Graphical representation of a traverser."""
+
     def __init__(self, traverser):
         self.traverser = traverser
         self.states = traverser.states
@@ -41,7 +43,7 @@ class GraphicalTraverser:
                 f"--------\n"
                 f"{history}")
 
-        if state is self.states.DONE:
+        if self.traverser.state is self.states.DONE:
             text += "\nPress enter in console to continue..."
 
         self._draw_text(screen, text, (10, 10))
