@@ -30,9 +30,7 @@ class GraphicalTree:
         my_font = pygame.font.SysFont('Comic Sans MS', 20)
         text_surface_1 = my_font.render(f"recursion level: {self.tree.depth}", False, (0, 0, 0))
         #screen.blit(textsurface1, (500, 450))
-        screen.blit(text_surface_1, (int(screen.get_width() * .79), int(screen.get_height() * .94)))
-
-
+        screen.blit(text_surface_1, (int(screen.get_width() * .75), int(screen.get_height() * .94)))
 
     def _draw_caption(self, screen, caption, font_color, x, y):
         # pylint: disable=invalid-name,too-many-arguments
