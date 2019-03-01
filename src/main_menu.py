@@ -1,3 +1,4 @@
+""" Main menu class meant as a main menu GUI that transitions to the actual main game """
 import sys
 import os
 import pygame
@@ -10,9 +11,9 @@ SCREEN_HEIGHT = 480
 FPS = 60
 BACKGROUND_COLOR = (155, 155, 155)
 
+
 # Moves into GUI and Console Game
 class MainMenu:
-
     def __init__(self):
         self.font = pygame.font.SysFont('Comic Sans MS', 12)
 
@@ -32,10 +33,8 @@ class MainMenu:
             pygame.display.flip()
             self.fps.tick(FPS)'''
 
-
     def _draw_button(self, screen):
         pygame.draw.rect(screen, BLACK, [150, 10, 50, 20])
-
 
     def _draw_words(self, screen, caption, font_color, x, y):
         width, height = self.font.size(caption)
