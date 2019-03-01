@@ -1,7 +1,7 @@
 """Graphical representation of a Traversal."""
 
-import pygame
 import os
+import pygame
 
 class GraphicalTraverser:
     """Graphical representation of a traverser."""
