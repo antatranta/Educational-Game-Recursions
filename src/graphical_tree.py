@@ -10,6 +10,7 @@ SELECTED_COLOR = (34, 139, 34)
 
 NODE_SIZE = 40
 
+
 class GraphicalTree:
     """Graphical representation of a FamilyTree."""
     # pylint: disable=c-extension-no-member
@@ -24,11 +25,11 @@ class GraphicalTree:
         y_pos = int(screen.get_height() - NODE_SIZE * 1.5)
         self._draw_node(screen, 0, self.tree.root, x_pos, y_pos)
 
-    def _drawcaption(self, screen, caption, font_color, x, y):
+    def _draw_caption(self, screen, caption, font_color, x, y):
         # pylint: disable=invalid-name,too-many-arguments
         width, height = self.font.size(caption)
-        textsurface = self.font.render(caption, False, font_color)
-        screen.blit(textsurface, (x - int(width / 2), int(y - height / 2)))
+        text_surface = self.font.render(caption, False, font_color)
+        screen.blit(text_surface, (x - int(width / 2), int(y - height / 2)))
 
     def _draw_node(self, screen, depth_count, node, x, y):
         # pylint: disable=invalid-name,too-many-arguments
@@ -52,4 +53,4 @@ class GraphicalTree:
 
         pygame.gfxdraw.aacircle(screen, x, y, NODE_SIZE, node_color)
         pygame.gfxdraw.filled_circle(screen, x, y, NODE_SIZE, node_color)
-        self._drawcaption(screen, node.name, text_color, x, y)
+        self._draw_caption(screen, node.name, text_color, x, y)

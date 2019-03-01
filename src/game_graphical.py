@@ -13,6 +13,7 @@ SCREEN_HEIGHT = 480
 FPS = 60
 BACKGROUND_COLOR = (155, 155, 155)
 
+
 class GameGraphical:
     """Class to help in starting a new Graphical Game."""
 
@@ -45,5 +46,5 @@ class GameGraphical:
     @classmethod
     def _handle_events(cls):
         for event in pygame.event.get():
-            if event.type is pygame.locals.QUIT:
-                sys.exit() # exit program when closing the window
+            if event.type is pygame.QUIT:
+                sys.exit()  # exit program when closing the window
