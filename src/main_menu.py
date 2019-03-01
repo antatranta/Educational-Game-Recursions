@@ -10,7 +10,7 @@ SCREEN_HEIGHT = 480
 FPS = 60
 BACKGROUND_COLOR = (155, 155, 155)
 
-#Moves into GUI or Console Game
+# Moves into GUI and Console Game
 class MainMenu:
 
     def __init__(self):
@@ -39,11 +39,20 @@ class MainMenu:
 
     def _draw_words(self, screen, caption, font_color, x, y):
         width, height = self.font.size(caption)
-        textsurface = self.font.render(caption, False, font_color)
-        screen.blit(textsurface, (x - int(width / 2), int(y - height / 2)))
+        text_surface = self.font.render(caption, False, font_color)
+        screen.blit(text_surface, (x - int(width / 2), int(y - height / 2)))
 
     @classmethod
     def _handle_events(cls):
         for event in pygame.event.get():
-            if event.type is pygame.locals.QUIT:
+            if event.type == pygame.MOUSEBUTTONUP:
+                pos = pygame.mouse.get_pos()
+                # blocker: need quit rectangle positions
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    pass
+
+            if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()  # exit program when closing the window
