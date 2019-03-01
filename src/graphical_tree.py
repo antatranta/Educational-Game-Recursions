@@ -1,6 +1,8 @@
 """GraphicalTree representation of a FamilyTree."""
+import os
 import pygame
 import pygame.gfxdraw
+
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -16,15 +18,14 @@ class GraphicalTree:
 
     def __init__(self, tree):
         self.tree = tree
-        self.font = pygame.font.SysFont("https://fonts.googleapis.com/css?family=Varela+Round", 12)
+        self.font = pygame.font.Font(os.path.join(".", "src", "Varela_Round", "VarelaRound-Regular.ttf"), 18)
 
     def draw(self, screen):
         """Draw this object to screen."""
         x_pos = int(screen.get_width() / 2)
         y_pos = int(screen.get_height() - NODE_SIZE * 1.5)
         self._draw_node(screen, 0, self.tree.root, x_pos, y_pos)
-        myfont = pygame.font.SysFont("https://fonts.googleapis.com/css?family=Varela+Round", 12)
-        textsurface1 = myfont.render(f"recursion level: {self.tree.depth}", False, (0, 0, 0))
+        textsurface1 = self.font.render(f"recursion level: {self.tree.depth}", False, (0, 0, 0))
         screen.blit(textsurface1, (int(screen.get_width() * .7), int(screen.get_height() * .94)))
 
 
