@@ -1,8 +1,8 @@
 """GraphicalTree representation of a FamilyTree."""
-import os
 import pygame
 import pygame.gfxdraw
 
+from .drawable import Drawable
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -16,28 +16,22 @@ TREE_WIDTH = 0.7
 TREE_HEIGHT = 0.8
 
 
-class GraphicalTree:
+class GraphicalTree(Drawable):
     """Graphical representation of a FamilyTree."""
     # pylint: disable=c-extension-no-member
 
     def __init__(self, tree):
+        super().__init__()
         self.tree = tree
-        #self.font = pygame.font.Font(os.path.join(".", "src", "Varela_Round", "VarelaRound-Regular.ttf"), 18)
-        self.font = pygame.font.Font(os.path.join(".", "src", "Oxygen_Mono", "OxygenMono-Regular.ttf"), 12)
 
     def draw(self, screen):
         """Draw this object to screen."""
         x_pos = int((2 - TREE_WIDTH) * screen.get_width() / 2)
         y_pos = int(screen.get_height() - NODE_SIZE * 1.5)
         self._draw_node(screen, 0, self.tree.root, x_pos, y_pos)
-        text_surface_1 = self.font.render(f"recursion level: {self.tree.depth}", True, (0, 0, 0))
-        screen.blit(text_surface_1, (int(screen.get_width() * .75), int(screen.get_height() * .94)))
 
-    def _draw_caption(self, screen, caption, font_color, x, y):
-        # pylint: disable=invalid-name,too-many-arguments
-        width, height = self.font.size(caption)
-        text_surface = self.font.render(caption, False, font_color)
-        screen.blit(text_surface, (x - int(width / 2), int(y - height / 2)))
+        self._draw_text(screen, f"recursion level: {self.tree.depth}",
+                        (int(screen.get_width() * .75), int(screen.get_height() * .94)))
 
     def _draw_node(self, screen, depth_count, node, x, y):
         # pylint: disable=invalid-name,too-many-arguments
@@ -61,4 +55,4 @@ class GraphicalTree:
 
         pygame.gfxdraw.aacircle(screen, x, y, NODE_SIZE, node_color)
         pygame.gfxdraw.filled_circle(screen, x, y, NODE_SIZE, node_color)
-        self._draw_caption(screen, node.name, text_color, x, y)
+        self._draw_text(screen, node.name, (x, y), text_color, center=True)

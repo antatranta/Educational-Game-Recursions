@@ -3,25 +3,18 @@
 import os
 import pygame
 
-class GraphicalTraverser:
+from .drawable import Drawable
+
+class GraphicalTraverser(Drawable):
     """Graphical representation of a traverser."""
 
     def __init__(self, traverser):
+        super().__init__()
         self.traverser = traverser
         self.states = traverser.states
-        #self.font = pygame.font.SysFont('Consolas', 12)
-        self.font = pygame.font.Font(os.path.join(".", "src", "Oxygen_Mono", "OxygenMono-Regular.ttf"), 10)
 
-    def _draw_text(self, screen, text, pos, color=(0, 0, 0), *, split_char='\n', background=None):
-        # pylint: disable=invalid-name
-        x, y = pos
-
-        for line in text.split(split_char):
-            surface = self.font.render(line, True, color, background)
-            screen.blit(surface, (x, y))
-
-            _, height = self.font.size(line)
-            y += int(height)
+        ttf = os.path.join(".", "src", "Oxygen_Mono", "OxygenMono-Regular.ttf")
+        self.font = pygame.font.Font(ttf, 10)
 
     def draw(self, screen):
         """Draw traversal steps to screen."""
