@@ -22,6 +22,7 @@ class GameGraphical:
         self.fps = pygame.time.Clock()
         self.tree = tree
         self._traverser = None
+        self.end_game = False
 
     def start_traversal(self, traverser):
         self._traverser = GraphicalTraverser(traverser)
@@ -38,6 +39,9 @@ class GameGraphical:
         call_stack = GraphicalCallStack(self.tree.call_stack, self.tree)
 
         while 1:
+            if self.end_game:
+                self.quit()
+
             self._handle_events()
 
             # Clear screen
@@ -57,6 +61,7 @@ class GameGraphical:
     @classmethod
     def quit(cls):
         """Exit the graphical game."""
+        pygame.quit()
         sys.exit()
 
     @classmethod

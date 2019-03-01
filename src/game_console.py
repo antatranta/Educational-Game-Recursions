@@ -166,6 +166,7 @@ class GameConsole:
                 break
 
             elif user_traverse_input in self.quit_strings:
+                self.gui.end_game = True
                 self._end_game_()
                 break
 
