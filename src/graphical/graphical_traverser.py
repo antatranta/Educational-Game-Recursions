@@ -1,8 +1,5 @@
 """Graphical representation of a Traversal."""
 
-import os
-import pygame
-
 from .drawable import Drawable
 
 class GraphicalTraverser(Drawable):
@@ -12,9 +9,7 @@ class GraphicalTraverser(Drawable):
         super().__init__()
         self.traverser = traverser
         self.states = traverser.states
-
-        ttf = os.path.join(".", "src", "graphical", "fonts", "OxygenMono-Regular.ttf")
-        self.font = pygame.font.Font(ttf, 10)
+        self.font = self._load_font("OxygenMono-Regular.ttf", 10)
 
     def draw(self, screen):
         """Draw traversal steps to screen."""

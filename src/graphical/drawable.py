@@ -8,8 +8,7 @@ class Drawable(ABC):
     """Base class for objects to be drawn to screen."""
 
     def __init__(self):
-        ttf = os.path.join(".", "src", "graphical", "fonts", "VarelaRound-Regular.ttf")
-        self.font = pygame.font.Font(ttf, 18)
+        self.font = self._load_font("VarelaRound-Regular.ttf", 18)
 
     def draw(self, screen):
         """Draw this object to given screen."""
@@ -30,3 +29,8 @@ class Drawable(ABC):
                 screen.blit(surface, (x, y))
 
             y += int(height)
+
+    @classmethod
+    def _load_font(cls, font, size):
+        path = os.path.join(".", "src", "graphical", "fonts", font)
+        return pygame.font.Font(path, size)
