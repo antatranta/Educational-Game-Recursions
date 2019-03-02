@@ -106,7 +106,16 @@ class MainMenu:
     @classmethod
     def _handle_events(cls):
         for event in pygame.event.get():
-            if event.type is pygame.locals.QUIT:
+            if event.type == pygame.MOUSEBUTTONUP:
+                pos = pygame.mouse.get_pos()
+                # blocker: need quit rectangle positions
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    pass
+
+            if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()  # exit program when closing the window
 
 if __name__ == "__main__":
