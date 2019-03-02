@@ -1,16 +1,19 @@
 """Game class that displays the game Graphically."""
 # pylint: disable=no-member
 import sys
+import threading
 
 import pygame
 import pygame.locals
 
+from game_questions import GameQuestions
 from .graphical_tree import GraphicalTree
 from .graphical_traverser import GraphicalTraverser
 
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 FPS = 60
+TRAVERSER_TIMER = 1
 BACKGROUND_COLOR = (155, 155, 155)
 
 
@@ -21,6 +24,7 @@ class GameGraphical:
         self.fps = pygame.time.Clock()
         self.tree = tree
         self._traverser = None
+        self.traversal_frame_time = 1000
 
     def start_traversal(self, traverser):
         """Display traverser graphically."""
@@ -45,10 +49,7 @@ class GameGraphical:
 
             # Render objects to screen
             graphical_tree.draw(screen)
-            # call_stack.draw(screen)
-
-            if self._traverser:
-                self._traverser.draw(screen)
+            self._draw_traverser(screen)
 
             # Redraw screen
             pygame.display.flip()
@@ -59,8 +60,43 @@ class GameGraphical:
         """Exit the graphical game."""
         sys.exit()
 
-    @classmethod
-    def _handle_events(cls):
+    def _draw_traverser(self, screen):
+        if self._traverser:
+            try:
+                self._traverser.draw(screen)
+                next(self._traverser.traverser)
+            except StopIteration:
+                self.end_traversal()
+
+            pygame.display.flip()
+            pygame.time.wait(self.traversal_frame_time)
+
+    def _on_keyup(self, event):
+        # always allow quit
+        if event.key is pygame.K_q:
+            self.quit()
+
+        # following keys not allowed during traversal
+        if self._traverser:
+            return
+
+        # game
+        if event.key is pygame.K_g:
+            threading.Thread(target=GameQuestions(None).compare_answers, daemon=True).start()
+
+        # begin traversals
+        if event.key is pygame.K_1:
+            self.start_traversal(self.tree.inorder())
+
+        if event.key is pygame.K_2:
+            self.start_traversal(self.tree.preorder())
+
+        if event.key is pygame.K_3:
+            self.start_traversal(self.tree.postorder())
+
+    def _handle_events(self):
         for event in pygame.event.get():
             if event.type is pygame.QUIT:
-                cls.quit()
+                self.quit()
+            elif event.type is pygame.KEYUP:
+                self._on_keyup(event)

@@ -1,5 +1,5 @@
 """Entry point to the game."""
-from game_console import GameConsole
+from graphical import GameGraphical
 
 from family_tree import FamilyTree
 from family_tree_node import FamilyTreeNode
@@ -10,4 +10,4 @@ if __name__ == "__main__":
     D = FamilyTreeNode("Me", B, F)
     TREE = FamilyTree(D)
 
-    GameConsole(tree=TREE).start_game()
+    GameGraphical(tree=TREE).start_game()

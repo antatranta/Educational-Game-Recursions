@@ -24,6 +24,8 @@ class GraphicalTraverser(Drawable):
                 depth += 1
             elif state in [self.states.CHILD, self.states.DONE]:
                 depth -= 1
+            elif state is self.states.DONE:
+                history += "\nPress enter in console to continue..."
 
         text = (f"Function:\n"
                 f"---------\n"
@@ -33,7 +35,5 @@ class GraphicalTraverser(Drawable):
                 f"--------\n"
                 f"{history}")
 
-        if self.traverser.state is self.states.DONE:
-            text += "\nPress enter in console to continue..."
 
         self._draw_text(screen, text, (10, 10))
