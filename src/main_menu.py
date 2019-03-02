@@ -4,6 +4,8 @@ import os
 import pygame
 import pygame.locals
 
+#ok
+
 pygame.init()
 
 WHITE = (255, 255, 255)
