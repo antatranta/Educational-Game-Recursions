@@ -25,46 +25,22 @@ class GameConsole:
         self.gui = None
 
     def start_game(self):
-        """ Starts a new game in that a welcome message appears and ask if the user want to play
-            or not. """
-        # welcome_message = "Welcome to Family Tree: A Real-Life Recursive Example!\n"
-        # print(welcome_message)
+        """ Starts a new game in that where the user enters his/her name to start the
+            game. """
+        # Needed to create instance of tkinter for pop-up dialog box
+        tkinter.Tk()
+        player_name = simpledialog.askstring(title="Player Name", prompt="What is your name?",
+                                             initialvalue="Me")
+        # Error handling in case user clicks Cancel or "X"
+        if player_name is None:
+            self._end_game_()
 
-        # menu = "Play or Quit?"
-        # print(menu)
-
-        application_window = tkinter.Tk()
-        player_name = simpledialog.askstring("Input", "What is your name?",
-                                             parent=application_window)
         tree = self._initialize_tree(player_name)
         self.player_family_tree = tree
 
         threading.Thread(target=self.main_game, daemon=True).start()
         self.gui = GameGraphical(tree=self.player_family_tree)
         self.gui.start_game()
-
-        # play_strings = ["play", "p"]
-        # while 1:
-        #    user_input = input(self.enter_input).lower()
-
-        #   if user_input in play_strings:
-        #        if self.player_family_tree is None:
-        #            get_player_name = "What is your name?"
-        #            print(get_player_name)
-        #            player_name = input(self.enter_input)
-        #            tree = self._initialize_tree(player_name)
-        #            self.player_family_tree = tree
-
-        #       threading.Thread(target=self.main_game, daemon=True).start()
-        #       self.gui = GameGraphical(tree=self.player_family_tree)
-        #       self.gui.start_game()
-        #       break
-
-        #   elif user_input in self.quit_strings:
-        #        self._end_game_()
-        #        break
-        #    else:
-        #        print(self.error_message)
 
     @staticmethod
     def _end_game_():
@@ -89,6 +65,7 @@ class GameConsole:
         father = FamilyTreeNode("Father", FamilyTreeNode("Dad's Dad"), FamilyTreeNode("Dad's Mom"))
         mother = FamilyTreeNode("Mother", FamilyTreeNode("Mom's Dad"), FamilyTreeNode("Mom's Mom"))
         player = FamilyTreeNode(player_name, father, mother)
+
         return FamilyTree(player)
 
     @classmethod

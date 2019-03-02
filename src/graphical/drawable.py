@@ -8,7 +8,7 @@ class Drawable(ABC):
     """Base class for objects to be drawn to screen."""
 
     def __init__(self):
-        self.font = self._load_font("VarelaRound-Regular.ttf", 18)
+        self.font = self._load_font("VarelaRound-Regular.ttf", 14)
 
     def draw(self, screen):
         """Draw this object to given screen."""
