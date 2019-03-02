@@ -5,7 +5,7 @@ import sys
 import os
 import tkinter
 
-from game_graphical import GameGraphical
+from graphical import GameGraphical
 from family_tree import FamilyTree
 from family_tree_node import FamilyTreeNode
 from game_questions import GameQuestions

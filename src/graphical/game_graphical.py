@@ -5,8 +5,8 @@ import sys
 import pygame
 import pygame.locals
 
-from graphical_tree import GraphicalTree
-from graphical_traverser import GraphicalTraverser
+from .graphical_tree import GraphicalTree
+from .graphical_traverser import GraphicalTraverser
 
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
