@@ -13,7 +13,7 @@ class GraphicalTraverser(Drawable):
         self.traverser = traverser
         self.states = traverser.states
 
-        ttf = os.path.join(".", "src", "Oxygen_Mono", "OxygenMono-Regular.ttf")
+        ttf = os.path.join(".", "src", "graphical", "fonts", "OxygenMono-Regular.ttf")
         self.font = pygame.font.Font(ttf, 10)
 
     def draw(self, screen):

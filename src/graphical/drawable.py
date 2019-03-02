@@ -8,7 +8,7 @@ class Drawable(ABC):
     """Base class for objects to be drawn to screen."""
 
     def __init__(self):
-        ttf = os.path.join(".", "src", "Varela_Round", "VarelaRound-Regular.ttf")
+        ttf = os.path.join(".", "src", "graphical", "fonts", "VarelaRound-Regular.ttf")
         self.font = pygame.font.Font(ttf, 18)
 
     def draw(self, screen):
