@@ -1,6 +1,5 @@
 """ Game questions class that handles user input (answers) to the questions given from this
     class """
-
 import random
 
 
