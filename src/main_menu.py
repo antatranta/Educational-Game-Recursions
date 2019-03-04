@@ -1,8 +1,8 @@
 """ Main menu class meant as a main menu GUI that transitions to the actual main game """
 # pylint: disable=no-member
 import os
-import pygame
 import sys
+import pygame
 
 from game_console import GameConsole
 from graphical.drawable import Drawable
@@ -20,8 +20,11 @@ SCREEN_HEIGHT = 480
 
 # Moves into GUI and Console Game
 class MainMenu(Drawable):
+    """ The main menu class that draws the main menu to be rendered to the screen.
+        This acts as a intro and switches over to our game when the user hits play. """
 
     def __init__(self):
+        super().__init__()
         pygame.init()
         self.menu_options = ["Play", "Quit"]
         self.iterator = 0
@@ -48,20 +51,20 @@ class MainMenu(Drawable):
 
     def _draw_button(self, fill_color, position):
         """ PARAMETERS:
-        fill_color: the color fill of the rectangle
-        position: the x and y coordinates for placing on the screen
+            fill_color: the color fill of the rectangle
+            position: the x and y coordinates for placing on the screen
         """
         pygame.draw.rect(self.screen, fill_color, position)
 
-    def _draw_words(self, caption, x, y):
+    def _draw_words(self, caption, x_pos, y_pos):
         """ PARAMETERS:
-        caption: the text to be blitted to the screen
-        x: the x coordinate of the placement of the text
-        y: the y coordinate of the placement of the text
+            caption: the text to be blitted to the screen
+            x_pos: the x coordinate of the placement of the text
+            y_pos: the y coordinate of the placement of the text
         """
         small_text = self._load_font("VarelaRound-Regular.ttf", 20)
         text_surf, text_rect = self.text_objects(caption, small_text)
-        text_rect.center = (x, y)
+        text_rect.center = (x_pos, y_pos)
         self.screen.blit(text_surf, text_rect)
 
     def _handle_events(self):
@@ -97,10 +100,16 @@ class MainMenu(Drawable):
 
     @staticmethod
     def text_objects(text, font):
+        """ Creates a text object for pygame with
+            PARAMETERS:
+            text: the input text for what to render to screen
+            font: the font parameter of the pygame
+        """
         text_surface = font.render(text, True, BLACK)
         return text_surface, text_surface.get_rect()
 
     def draw(self):
+        # pylint: disable=arguments-differ
         """ Draws the main menu screen """
         background_img = pygame.image.load(os.path.join(".", "src", "graphical", "background2.png"))
         self.screen.blit(background_img, [0, 0])
