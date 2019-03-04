@@ -3,19 +3,17 @@ import threading
 import time
 import sys
 import os
-import tkinter
 
 from graphical import GameGraphical
 from family_tree import FamilyTree
 from family_tree_node import FamilyTreeNode
 from game_questions import GameQuestions
-from tkinter import simpledialog
 
 
 class GameConsole:
     """ Game console class """
 
-    animation_speed = 1 # number of seconds between animation frames
+    animation_speed = 1  # number of seconds between animation frames
 
     def __init__(self, tree=None):
         self.enter_input = "Please enter an input: "
@@ -27,15 +25,7 @@ class GameConsole:
     def start_game(self):
         """ Starts a new game in that where the user enters his/her name to start the
             game. """
-        # Needed to create instance of tkinter for pop-up dialog box
-        tkinter.Tk()
-        player_name = simpledialog.askstring(title="Player Name", prompt="What is your name?",
-                                             initialvalue="Me")
-        # Error handling in case user clicks Cancel or "X"
-        if player_name is None:
-            self._end_game_()
-
-        tree = self._initialize_tree(player_name)
+        tree = self._initialize_tree("Me")
         self.player_family_tree = tree
 
         threading.Thread(target=self.main_game, daemon=True).start()
