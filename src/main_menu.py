@@ -24,8 +24,8 @@ class MainMenu(Drawable):
         This acts as a intro and switches over to our game when the user hits play. """
 
     def __init__(self):
-        super().__init__()
         pygame.init()
+        super().__init__()
         self.menu_options = ["Play", "Quit"]
         self.iterator = 0
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))

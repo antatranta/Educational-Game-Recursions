@@ -33,7 +33,6 @@ class GameGraphical:
 
     def start_game(self):
         """Start a Graphical Game."""
-        pygame.init()
         screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         graphical_tree = GraphicalTree(self.tree)
