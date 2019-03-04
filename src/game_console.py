@@ -13,7 +13,7 @@ from game_questions import GameQuestions
 class GameConsole:
     """ Game console class """
 
-    animation_speed = 1 # number of seconds between animation frames
+    animation_speed = 1  # number of seconds between animation frames
 
     def __init__(self, tree=None):
         self.enter_input = "Please enter an input: "
@@ -23,37 +23,14 @@ class GameConsole:
         self.gui = None
 
     def start_game(self):
-        """ Starts a new game in that a welcome message appears and ask if the user want to play
-            or not. """
-        welcome_message = "Welcome to Family Tree: A Real-Life Recursive Example!\n"
-        menu = "Play or Quit?"
+        """ Starts a new game in that where the user enters his/her name to start the
+            game. """
+        tree = self._initialize_tree("Me")
+        self.player_family_tree = tree
 
-        print(welcome_message)
-        print(menu)
-
-        play_strings = ["play", "p"]
-
-        while 1:
-            user_input = input(self.enter_input).lower()
-
-            if user_input in play_strings:
-                if self.player_family_tree is None:
-                    get_player_name = "What is your name?"
-                    print(get_player_name)
-                    player_name = input(self.enter_input)
-                    tree = self._initialize_tree(player_name)
-                    self.player_family_tree = tree
-
-                threading.Thread(target=self.main_game, daemon=True).start()
-                self.gui = GameGraphical(tree=self.player_family_tree)
-                self.gui.start_game()
-                break
-
-            elif user_input in self.quit_strings:
-                self._end_game_()
-                break
-            else:
-                print(self.error_message)
+        threading.Thread(target=self.main_game, daemon=True).start()
+        self.gui = GameGraphical(tree=self.player_family_tree)
+        self.gui.start_game()
 
     @staticmethod
     def _end_game_():
@@ -78,6 +55,7 @@ class GameConsole:
         father = FamilyTreeNode("Father", FamilyTreeNode("Dad's Dad"), FamilyTreeNode("Dad's Mom"))
         mother = FamilyTreeNode("Mother", FamilyTreeNode("Mom's Dad"), FamilyTreeNode("Mom's Mom"))
         player = FamilyTreeNode(player_name, father, mother)
+
         return FamilyTree(player)
 
     @classmethod
@@ -165,6 +143,7 @@ class GameConsole:
                 break
 
             elif user_traverse_input in self.quit_strings:
+                self.gui.end_game = True
                 self._end_game_()
                 break
 
