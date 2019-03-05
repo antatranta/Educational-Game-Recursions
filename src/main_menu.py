@@ -4,8 +4,10 @@ import os
 import sys
 import pygame
 
-from game_console import GameConsole
+from graphical import GameGraphical
 from graphical.drawable import Drawable
+from family_tree import FamilyTree
+from family_tree_node import FamilyTreeNode
 
 # Color RGB values
 BLACK = (0, 0, 0)
@@ -75,7 +77,7 @@ class MainMenu(Drawable):
                 mouse_pos = pygame.mouse.get_pos()
 
                 if 140 + 100 > mouse_pos[0] > 140 and 400 + 50 > mouse_pos[1] > 400:
-                    GameConsole().start_game()
+                    GameGraphical(self._initialize_tree()).start_game()
                 if 400 + 100 > mouse_pos[0] > 400 and 400 + 50 > mouse_pos[1] > 400:
                     quit()
 
@@ -89,7 +91,7 @@ class MainMenu(Drawable):
                     self.iterator = 1
                 elif event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
                     if self.menu_options[self.iterator] == "Play":
-                        GameConsole().start_game()
+                        GameGraphical(self._initialize_tree()).start_game()
                     elif self.menu_options[self.iterator] == "Quit":
                         pygame.quit()
                         sys.exit()
@@ -107,6 +109,14 @@ class MainMenu(Drawable):
         """
         text_surface = font.render(text, True, BLACK)
         return text_surface, text_surface.get_rect()
+
+    @classmethod
+    def _initialize_tree(cls):
+        father = FamilyTreeNode("Father", FamilyTreeNode("Dad's Dad"), FamilyTreeNode("Dad's Mom"))
+        mother = FamilyTreeNode("Mother", FamilyTreeNode("Mom's Dad"), FamilyTreeNode("Mom's Mom"))
+        player = FamilyTreeNode('Me', father, mother)
+
+        return FamilyTree(player)
 
     def draw(self):
         # pylint: disable=arguments-differ

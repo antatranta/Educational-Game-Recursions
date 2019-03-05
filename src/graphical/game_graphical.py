@@ -123,13 +123,12 @@ class GameGraphical:
 class AvailableActions(Drawable):
     """Class to show available actions in GUI window"""
     def draw(self, screen):
-        available_actions = ('M - Go to Mother\n' 
-                             'F - Go to Father\n' 
+        available_actions = ('M - Go to Mother\n'
+                             'F - Go to Father\n'
                              'C - Go to Child\n'
                              '1 - In-Order Traversal\n'
-                             '2 - Pre-Order Traversal\n' 
-                             '3 - Post-Order Traversal\n' 
+                             '2 - Pre-Order Traversal\n'
+                             '3 - Post-Order Traversal\n'
                              'G - Play Recursion Game\n'
                              'Q - Quit Game')
         self._draw_text(screen, available_actions, (10, 10))
-
