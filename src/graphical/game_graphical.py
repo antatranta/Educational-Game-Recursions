@@ -9,6 +9,7 @@ import pygame.locals
 from game_questions import GameQuestions
 from .graphical_tree import GraphicalTree
 from .graphical_traverser import GraphicalTraverser
+from .drawable import Drawable
 
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
@@ -98,9 +99,19 @@ class GameGraphical:
         if event.key is pygame.K_3:
             self.start_traversal(self.tree.postorder())
 
+        if event.key is pygame.K_m:
+            self.tree.go_to_mother()
+
+        if event.key is pygame.K_f:
+            self.tree.go_to_father()
+
+        if event.key is pygame.K_c:
+            self.tree.go_to_child()
+
     def _handle_events(self):
         for event in pygame.event.get():
             if event.type is pygame.QUIT:
                 self.quit()
             elif event.type is pygame.KEYUP:
                 self._on_keyup(event)
+
