@@ -54,9 +54,11 @@ class GameGraphical:
 
             # Render objects to screen
             graphical_tree.draw(screen)
-            available_actions.draw(screen)
-            self._draw_traverser(screen)
 
+            if self._traverser:
+                self._draw_traverser(screen)
+            else:
+                available_actions.draw(screen)
             # Redraw screen
             pygame.display.flip()
             self.fps.tick(FPS)
