@@ -41,6 +41,7 @@ class GameGraphical:
         screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         graphical_tree = GraphicalTree(self.tree)
+        available_actions = AvailableActions()
 
         while True:
             if self.end_game:
@@ -53,6 +54,7 @@ class GameGraphical:
 
             # Render objects to screen
             graphical_tree.draw(screen)
+            available_actions.draw(screen)
             self._draw_traverser(screen)
 
             # Redraw screen
@@ -114,4 +116,18 @@ class GameGraphical:
                 self.quit()
             elif event.type is pygame.KEYUP:
                 self._on_keyup(event)
+
+
+class AvailableActions(Drawable):
+    """Class to show available actions in GUI window"""
+    def draw(self, screen):
+        available_actions = ('M - Go to Mother\n' 
+                             'F - Go to Father\n' 
+                             'C - Go to Child\n'
+                             '1 - In-Order Traversal\n'
+                             '2 - Pre-Order Traversal\n' 
+                             '3 - Post-Order Traversal\n' 
+                             'G - Play Recursion Game\n'
+                             'Q - Quit Game')
+        self._draw_text(screen, available_actions, (10, 10))
 
