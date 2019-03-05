@@ -25,11 +25,13 @@ class GameGraphical:
         self.fps = pygame.time.Clock()
         self.tree = tree
         self._traverser = None
+        self._traversal_continue = False
         self.traversal_frame_time = 1000
         self.end_game = False
 
     def start_traversal(self, traverser):
         """Display traverser graphically."""
+        self._traversal_continue = False
         self._traverser = GraphicalTraverser(traverser)
 
     def end_traversal(self):
@@ -70,25 +72,27 @@ class GameGraphical:
         sys.exit()
 
     def _draw_traverser(self, screen):
-        if self._traverser:
-            try:
-                self._traverser.draw(screen)
-                next(self._traverser.traverser)
-            except StopIteration:
+        try:
+            self._traverser.draw(screen)
+            next(self._traverser.traverser)
+        except StopIteration:
+            if self._traversal_continue:
                 self.end_traversal()
 
-            pygame.display.flip()
-            pygame.time.wait(self.traversal_frame_time)
+        pygame.display.flip()
+        pygame.time.wait(self.traversal_frame_time)
 
     def _on_keyup(self, event):
         # always allow quit
         if event.key is pygame.K_q:
             self.quit()
 
-        # following keys not allowed during traversal
+        # keys during traversal
         if self._traverser:
+            self._traversal_continue = self._traverser.traverser.done
             return
 
+        # keys during normal gameplay
         # game
         if event.key is pygame.K_g:
             threading.Thread(target=GameQuestions(None).compare_answers, daemon=True).start()
