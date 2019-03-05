@@ -58,17 +58,6 @@ class MainMenu(Drawable):
         """
         pygame.draw.rect(self.screen, fill_color, position)
 
-    def _draw_words(self, caption, x_pos, y_pos):
-        """ PARAMETERS:
-            caption: the text to be blitted to the screen
-            x_pos: the x coordinate of the placement of the text
-            y_pos: the y coordinate of the placement of the text
-        """
-        small_text = self._load_font("VarelaRound-Regular.ttf", 20)
-        text_surf, text_rect = self.text_objects(caption, small_text)
-        text_rect.center = (x_pos, y_pos)
-        self.screen.blit(text_surf, text_rect)
-
     def _handle_events(self):
         """ Handles the event input of mouse or keyboard """
         for event in pygame.event.get():
@@ -125,10 +114,12 @@ class MainMenu(Drawable):
         self.screen.blit(background_img, [0, 0])
 
         title_text = "Family Tree: A Real Life Recursive Example"
+        subtitle_text = "By: Anthony Helou, Seth Kith, Alex Pelavin, " \
+                        "Anthony Tran, Antonio Tran, Jeffrey Wu"
         large_text = self._load_font('VarelaRound-Regular.ttf', 30)
-        text_surf, text_rect = self.text_objects(title_text, large_text)
-        text_rect.center = ((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 4))
-        self.screen.blit(text_surf, text_rect)
+        small_text = self._load_font("VarelaRound-Regular.ttf", 20)
+        self._draw_text(self.screen, title_text, pos=((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 4)),
+                        font=large_text, center=True, background=(255, 255, 255))
 
         # Clock
         window_clock = pygame.time.Clock()
@@ -144,8 +135,13 @@ class MainMenu(Drawable):
             # the same as using keyboard inputs
             self._draw_highlighted_buttons()
 
-            self._draw_words(self.menu_options[0], 140 + 100 / 2, 400 + 50 / 2)
-            self._draw_words(self.menu_options[1], 400 + 100 / 2, 400 + 50 / 2)
+            self._draw_text(self.screen, self.menu_options[0], (140 + 100 / 2, 400 + 50 / 2),
+                            font=small_text, center=True)
+            self._draw_text(self.screen, self.menu_options[1], (400 + 100 / 2, 400 + 50 / 2),
+                            font=small_text, center=True)
+            self._draw_text(self.screen, subtitle_text,
+                            pos=((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 4)+25),
+                            background=(255, 255, 255), center=True)
 
             pygame.display.update()
             window_clock.tick(60)

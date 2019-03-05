@@ -15,13 +15,14 @@ class Drawable(ABC):
         raise NotImplementedError
 
     def _draw_text(self, screen, text, pos, color=(0, 0, 0), *,
-                   background=None, center=False, split_char='\n'):
-        # pylint: disable=invalid-name
+                   background=None, center=False, split_char='\n', font=None):
+        # pylint: disable=invalid-name,too-many-locals
         x, y = pos
+        font = self.font if font is None else font
 
         for line in text.split(split_char):
-            width, height = self.font.size(line)
-            surface = self.font.render(line, True, color, background)
+            width, height = font.size(line)
+            surface = font.render(line, True, color, background)
 
             if center:
                 screen.blit(surface, (x - int(width / 2), int(y - height / 2)))
