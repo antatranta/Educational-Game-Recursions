@@ -8,7 +8,7 @@ before_script:
 
 script:
   - "pylint src"
-  - "coverage src/test.py"
+  - "coverage run src/test.py"
 
 after_script:
   - "coverage report --show-missing"
