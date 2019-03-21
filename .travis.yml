@@ -1,4 +1,14 @@
+---
 language: python
-python:
-    - "3.7-dev"
-script: python src/test.py
+python: "3.7-dev"
+
+before_script:
+  - "pip install coverage pylint"
+  - "pip install -r requirements.txt"
+
+script:
+  - "pylint src"
+  - "coverage src/test.py"
+
+after_script:
+  - "coverage report --show-missing"
