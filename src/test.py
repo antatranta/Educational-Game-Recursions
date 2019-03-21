@@ -1,3 +1,4 @@
+# pylint: disable=missing-docstring
 import unittest
 
 from family_tree_node import FamilyTreeNode
@@ -22,7 +23,10 @@ class TestFamilyTree(unittest.TestCase):
         for i, state in enumerate(tree.inorder()):
             self.assertEqual(state, expected[i])
 
-        root = FamilyTreeNode("Father", FamilyTreeNode("Dad's Dad"), FamilyTreeNode("Dad's Mom", FamilyTreeNode("Dad's Mom's Dad")))
+        root = FamilyTreeNode("Father",
+                              FamilyTreeNode("Dad's Dad"),
+                              FamilyTreeNode("Dad's Mom",
+                                             FamilyTreeNode("Dad's Mom's Dad")))
         tree = FamilyTree(root)
 
         expected = [TraversalStates.START,
