@@ -1,4 +1,4 @@
-# edu-game-waid
+# Educational Game: Recursions
 
 ## Table of Contents
 * [Setup](#Setup)
